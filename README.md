@@ -1,36 +1,48 @@
 # Read Me First
 
-To start the project, first build it 
-1. ./gradlew build
-2. docker-compose up --build 
 
 # Getting Started
 
+To start the project, first build it
+1. ./gradlew build
+2. docker build -t chencorp/file-api .
+3. docker-compose up
+
 ### Reference Documentation
-For further reference, please consider the following sections:
+1. to create a file in the api 
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.4/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.4/gradle-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-* [Thymeleaf](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#boot-features-spring-mvc-template-engines)
-* [Flyway Migration](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#howto-execute-flyway-database-migrations-on-startup)
-* [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#production-ready)
+PUT http://localhost:8080/file?name=test.txt&category=test
+and in the Request Body, place the binary/text data
+2. to upload a new version
 
-### Guides
-The following guides illustrate how to use some features concretely:
+POST http://localhost:8080/file/1 and in the Request Body, place the binary/text data
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Handling Form Submission](https://spring.io/guides/gs/handling-form-submission/)
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-* [Building a RESTful Web Service with Spring Boot Actuator](https://spring.io/guides/gs/actuator-service/)
+3. GET http://localhost:8080/file/1 to get the metataData & the versions
 
-### Additional Links
-These additional references should also help you:
+4. GET http://localhost:8080/file-data/1 to get the file in a browser
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+5. GET http://localhost:8080/files?name=<fileName>&category=<category> to search for files
 
+6. DELETE http://localhost:8080/file/1 to delete the file and all its version
+
+### Remarks
+
+- CRUD for File API
+- Versioning for file 
+- Exception Handler
+- Flyway for database migration
+- Auditable with security user (altough security not implemented)
+- data is stored in database (could be in filesystem)
+
+
+### Nice to have
+
+- Hateoas to be added (easier for resource management)
+- Security to added with Oauth2 (my preference)
+- much more complex model needed for production 
+  - who has access to this file RBAC 
+  - add hashing to avoid same version added twice for same file
+  - logical delete
+- UI to visualize the API with html form
+- Audit table to follow up on who has done what and when
+- ... 
