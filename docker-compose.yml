@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=FileApi
+      - MYSQL_USER=file-api-user
+      - MYSQL_PASSWORD=password
+    ports:
+      - 3306:3306
+
+  file-api:
+    image: chencorp/file-api
+    restart: on-failure
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=mysql
+      - DATABASE_USER=file-api-user
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=FileApi
+      - DATABASE_PORT=3306
