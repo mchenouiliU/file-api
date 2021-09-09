@@ -9,23 +9,32 @@ To start the project, first build it
 3. docker-compose up
 
 ### Reference Documentation
-1. to create a file in the api 
+1. Create a file in the api  
+PUT http://localhost:8080/file?name=test.txt&category=test  
+Body: place the binary/text data  
+  
 
-PUT http://localhost:8080/file?name=test.txt&category=test
-and in the Request Body, place the binary/text data
-2. to upload a new version
+2. to upload a new version  
+POST http://localhost:8080/file/1  
+Body: place the binary/text data
+  
 
-POST http://localhost:8080/file/1 and in the Request Body, place the binary/text data
+3. Read a file metadata & the version available
+GET http://localhost:8080/file/1
+  
 
-3. GET http://localhost:8080/file/1 to get the metataData & the versions
+4. get the file in a browser  
+GET http://localhost:8080/file-data/1 
+  
 
-4. GET http://localhost:8080/file-data/1 to get the file in a browser
+5. Search by Name & category  
+GET http://localhost:8080/files?name=<fileName>&category=<category> to search for files
+  
 
-5. GET http://localhost:8080/files?name=<fileName>&category=<category> to search for files
+6. Delete the file and all its version  
+DELETE http://localhost:8080/file/1
 
-6. DELETE http://localhost:8080/file/1 to delete the file and all its version
-
-### Remarks
+### Whats was done
 
 - CRUD for File API
 - Versioning for file 
